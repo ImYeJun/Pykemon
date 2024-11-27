@@ -1,4 +1,7 @@
 import pygame
+from ggoBugi.pokemonsurvival import pokemonsurvival
+from jammanbo.jammanbo import  jammanbo
+from pikachuValleyball.pikachuValleyball import pikacjuValleyball
 
 pygame.init()
 
@@ -40,6 +43,14 @@ while running:
                 if selectIndex < 2:
                     selectIndex += 1
                     menuTextChange()
+
+            elif event.key == pygame.K_RETURN:
+                if selectIndex == 0:
+                    jammanbo()
+                elif selectIndex == 1:
+                    pikacjuValleyball()
+                elif selectIndex == 2:
+                    pokemonsurvival()
 
         elif event.type == pygame.QUIT:
             running = False
