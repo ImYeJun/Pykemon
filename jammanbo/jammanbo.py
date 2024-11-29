@@ -28,17 +28,17 @@ def jammanbo():
 
     # 배경음악 및 효과음
     path = "Pykemon\jammanbo\img/"
-    pygame.mixer.music.load(path+"background_music.mp3")
+    pygame.mixer.music.load(path + "background_music.mp3")
     pygame.mixer.music.set_volume(0.5)
     pygame.mixer.music.play(-1)
 
-    eat_sound = pygame.mixer.Sound(path+"eat_sound.wav.mp3")
+    eat_sound = pygame.mixer.Sound(path + "eat_sound.wav.mp3")
     eat_sound.set_volume(0.7)
 
-    bomb_sound = pygame.mixer.Sound(path+"bomb_sound.wav.mp3")
+    bomb_sound = pygame.mixer.Sound(path + "bomb_sound.wav.mp3")
     bomb_sound.set_volume(0.7)
 
-    game_over_sound = pygame.mixer.Sound(path+"game_over_sound.wav")
+    game_over_sound = pygame.mixer.Sound(path + "game_over_sound.wav")
     game_over_sound.set_volume(0.7)
 
     # 플레이어 속성
@@ -48,28 +48,28 @@ def jammanbo():
     player_speed = 7
 
     # 배경 이미지
-    background_image = pygame.image.load(path+"background.png")
+    background_image = pygame.image.load(path + "background.png")
     background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
 
     # 잠만보 이미지
-    snorlax_closed = pygame.image.load(path+"snorlax_closed.png")
-    snorlax_open = pygame.image.load(path+"snorlax_open.png")
+    snorlax_closed = pygame.image.load(path + "snorlax_closed.png")
+    snorlax_open = pygame.image.load(path + "snorlax_open.png")
     snorlax_closed = pygame.transform.scale(snorlax_closed, (player_width, player_height))
     snorlax_open = pygame.transform.scale(snorlax_open, (player_width, player_height))
     snorlax_image = snorlax_closed
 
     # 과일 이미지
     fruit_images = [
-        pygame.image.load(path+"banana.png"),
-        pygame.image.load(path+"grape.png"),
-        pygame.image.load(path+"tomato.png"),
-        pygame.image.load(path+"lime.png"),
-        pygame.image.load(path+"peach.png"),
+        pygame.image.load(path + "banana.png"),
+        pygame.image.load(path + "grape.png"),
+        pygame.image.load(path + "tomato.png"),
+        pygame.image.load(path + "lime.png"),
+        pygame.image.load(path + "peach.png"),
     ]
     fruit_images = [pygame.transform.scale(img, (40, 40)) for img in fruit_images]
 
     # 폭탄 이미지 (두리안)
-    bomb_image = pygame.image.load(path+"bomb.png")
+    bomb_image = pygame.image.load(path + "bomb.png")
     bomb_image = pygame.transform.scale(bomb_image, (40, 40))
 
     # 게임 변수
@@ -88,7 +88,6 @@ def jammanbo():
     # 먹는 상태 타이머
     eat_timer = 0
 
-
     def reset_game():
         """게임 상태 초기화"""
         global player_x, fruits, bombs, score, game_over, snorlax_image, start_time, sound_played
@@ -102,37 +101,34 @@ def jammanbo():
         start_time = pygame.time.get_ticks()
         pygame.mixer.music.unpause()  # 배경음악 재개
 
-
     def draw_game_over():
         """게임 종료 화면 표시"""
         pygame.mixer.music.pause()
-        global sound_played
+        global sound_played  # Declare global
 
         # 게임 종료 효과음 한 번만 재생
-        if not sound_played:
-            game_over_sound.play()
-            sound_played = True
+        # if not sound_played:
+        #     game_over_sound.play()
+        #     sound_played = True
 
         result_text = font.render(f"Your Score: {score}", True, BLACK)
-        restart_text = small_font.render("Click to Restart", True, BLUE)
+        # restart_text = small_font.render("Click to Restart", True, BLUE)
 
         screen.blit(result_text, (WIDTH // 2 - result_text.get_width() // 2, HEIGHT // 3))
-        screen.blit(restart_text, (WIDTH // 2 - restart_text.get_width() // 2, HEIGHT // 2))
+        # screen.blit(restart_text, (WIDTH // 2 - restart_text.get_width() // 2, HEIGHT // 2))
 
         # 버튼 표시
-        restart_button = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 50, 200, 50)
-        pygame.draw.rect(screen, BLUE, restart_button)
-        button_text = small_font.render("Restart", True, WHITE)
-        screen.blit(button_text, (restart_button.x + 50, restart_button.y + 10))
-        return restart_button
-
+        # restart_button = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 50, 200, 50)
+        # pygame.draw.rect(screen, BLUE, restart_button)
+        # button_text = small_font.render("Restart", True, WHITE)
+        # screen.blit(button_text, (restart_button.x + 50, restart_button.y + 10))
+        # return restart_button
 
     def draw_time_bar(elapsed_time):
         """시간 막대기 그리기"""
         remaining_time = max(0, time_limit - elapsed_time)
         bar_width = int((remaining_time / time_limit) * WIDTH)
         pygame.draw.rect(screen, GREEN, (0, HEIGHT - 20, bar_width, 20))
-
 
     # 게임 루프
     running = True
@@ -240,11 +236,7 @@ def jammanbo():
         score_text = small_font.render(f"Score: {score}", True, BLACK)
         screen.blit(score_text, (10, 10))
 
-        # 시간 표시
-        time_text = small_font.render(f"Time: {time_limit - current_time}s", True, BLACK)
-        screen.blit(time_text, (WIDTH - 150, 10))
-
-        # 타임바 표시
+        # 시간 막대 표시
         draw_time_bar(current_time)
 
         pygame.display.flip()
