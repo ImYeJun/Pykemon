@@ -1,6 +1,8 @@
 def pikacjuValleyball():
     import pygame
     import random
+    import sys
+    
     pygame.init()
     pygame.mixer.init()
 
@@ -242,4 +244,5 @@ def pikacjuValleyball():
 
 
     pygame.quit()
+    sys.exit()
 
